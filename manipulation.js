@@ -150,3 +150,68 @@ console.log(parentOl.parentNode.parentNode) // :) posso risalire ai miei "antena
 parentOl.appendChild(newListItem)
 
 // senza inserire l'elemento con ad es. appendChild NON vedremo l'elemento nel DOM!
+
+// COMINCIAMO A INCAPSULARE LE NOSTRE MANIPOLAZIONI DEL DOM IN FUNZIONI
+
+// creiamo una funzione che cambia il colore del testo del footer
+const changeFooterTextColor = function () {
+  // soliti due passaggi
+  // 1) seleziono l'elemento
+  const footer = document.querySelector('footer')
+  // 2) applico le modifiche
+  footer.style.color = 'pink'
+}
+
+changeFooterTextColor()
+
+// applica la classe "removed" a tutti gli "li" nella navbar
+const hideAllNavbarLis = function () {
+  // 1) seleziono tutti gli elementi
+  let allLis = document.querySelectorAll('nav li')
+
+  // 2) applico ad ognuno di essi la classe "removed"
+  // allLis è un array! non posso fare allLis.classList ;(
+  allLis.forEach((li) => {
+    li.classList.toggle('removed')
+  })
+
+  // proviamo anche a cambiare il testo del bottone
+  //   1)
+  let hideMenuButton = document.querySelector('header button')
+  // 2)
+  if (allLis[0].classList.contains('removed')) {
+    hideMenuButton.innerText = 'MOSTRA MENU'
+  } else {
+    hideMenuButton.innerText = 'NASCONDI MENU'
+  }
+
+  // extreme :)
+  //   hideMenuButton.innerText = allLis[0].classList.contains('removed')
+  //     ? 'MOSTRA MENU'
+  //     : 'NASCONDI MENU'
+}
+
+// hideAllNavbarLis()
+
+// ora selezioniamo il bottone "NASCONDI MENU" e al suo click colleghiamo
+// la funzione hideAllNavbarLis
+// 1)
+let hideMenuButton = document.querySelector('header button')
+console.log(hideMenuButton)
+
+hideMenuButton.onclick = hideAllNavbarLis
+// la funzione non ha le ()
+
+const clickOnParagraphs = function () {
+  //   const allP = document.querySelectorAll('.content p')
+  let allP = document.getElementsByClassName('content')
+  allP = Array.from(allP) // altrimenti forEach non funziona perchè allP era una HTMLCollection
+  allP.forEach((p) => {
+    p.style.color = 'green'
+  })
+}
+
+const articles = document.querySelectorAll('.content')
+articles.forEach((a) => {
+  a.onclick = clickOnParagraphs
+})

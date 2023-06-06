@@ -105,3 +105,48 @@ mainTitleOfThePage.classList.add('primary-color')
 mainTitleOfThePage.classList.toggle('test')
 // la proprietà className invece opera sempre sulle classe CSS ma tratta il valore di class="" come un'unica stringa
 // mainTitleOfThePage.className = 'primary-color test'
+
+// la proprietà style di un elemento del DOM ci permette di applicare uno
+// stile inline via JS
+// QUICK & DIRTY :)
+mainTitleOfThePage.style.fontSize = '1em'
+mainTitleOfThePage.style.backgroundColor = 'green'
+mainTitleOfThePage.style.border = `2px solid black`
+
+// setAttribute vi permette di settare genericamente un attributo qualsiasi
+// aggiungo un id="mario" al secondo articolo
+secondArticle.setAttribute('id', 'mario')
+
+// cambiamo il valore href del link al foglio CSS e rompiamo la pagina
+// document.querySelector('link').setAttribute('href', '')
+
+// CREATEELEMENT
+// Il metodo document.createElement() ci permette di creare in memoria un nuovo
+// elemento nel DOM
+
+let newListItem = document.createElement('li')
+console.log('newListItem', newListItem)
+// <li></li> <-- ho creato un tag li vuoto
+
+// inseriamo come valore testuale del mio nuovo tag li "Sixth"
+newListItem.innerText = 'Sixth'
+// <li>Sixth</li> <-- ho aggiunto il testo
+
+// l'elemento newListItem ora è completo ed esiste in memoria
+// ora dobbiamo AGGIUNGERLO FISICAMENTE alla pagina!
+// il metodo più classico è "appenderlo" nel DOM, alla fine di un altro elemento
+
+// quindi, visto che devo appenderlo alla fine della mia lista ordinata,
+// devo trovare il riferimento a tale lista e appenderci alla fine il mio newListItem
+
+// due alternative:
+// getElementsByTagName
+// let parentOl = document.getElementsByTagName('ol')[0] // :)
+// querySelector
+let parentOl = document.querySelector('ol') // :)
+console.log(parentOl.parentNode.parentNode) // :) posso risalire ai miei "antenati" quanto voglio
+
+// ultimo passaggio: appendere newListItem a parentOl
+parentOl.appendChild(newListItem)
+
+// senza inserire l'elemento con ad es. appendChild NON vedremo l'elemento nel DOM!
